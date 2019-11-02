@@ -8,7 +8,7 @@ numpy.random.seed(42)
 ### The words (features) and authors (labels), already largely processed.
 ### These files should have been created from the previous (Lesson 10)
 ### mini-project.
-words_file = "../text_learning/your_word_data.pkl" 
+words_file = "../text_learning/your_word_data.pkl"
 authors_file = "../text_learning/your_email_authors.pkl"
 word_data = pickle.load( open(words_file, "r"))
 authors = pickle.load( open(authors_file, "r") )
@@ -39,5 +39,27 @@ labels_train   = labels_train[:150]
 
 ### your code goes here
 
+from sklearn import tree
+clf = tree.DecisionTreeClassifier(min_samples_split=40)
+clf = clf.fit(features_train, labels_train)
 
+pred = clf.predict(features_test)
+# unko = clf.predict(features_train)
 
+from sklearn.metrics import accuracy_score
+# print(accuracy_score(labels_train, unko))
+# print(len(labels_train))
+# print(len(labels_test))
+print "accuracy_score: ", accuracy_score(labels_test, pred)
+
+feature_importances = clf.feature_importances_
+import pprint
+import numpy as np
+pprint.pprint(np.amax(feature_importances))
+# print "index of max: ", np.argmax(feature_importances)
+# print "max word: ", vectorizer.get_feature_names()[np.argmax(feature_importances)]
+print "over 0.2: ", feature_importances[feature_importances > 0.2]
+idx = np.where(feature_importances > 0.2)
+for i in idx[0]:
+    print i
+    print "over 0.2 word: ", vectorizer.get_feature_names()[i]
