@@ -1,0 +1,2 @@
+['poi','bonus','from_messages','from_poi_to_this_person','from_this_person_to_poi',
+               'salary','to_messages','total_stock_value']
